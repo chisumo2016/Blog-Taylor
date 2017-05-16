@@ -10,7 +10,10 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+Route::get('/', 'PostsController@index');
+Route::get('/posts/create', 'PostsController@create');
+Route::post('/posts','PostsController@store');
+Route::get('/post/{post}','PostsController@show');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::post('/posts/{post}/comments','CommentsController@store');
+
