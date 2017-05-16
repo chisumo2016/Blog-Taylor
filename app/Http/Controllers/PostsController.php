@@ -10,11 +10,23 @@ use App\Post;
 
 class PostsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     //
     public function index()
     {
         $posts = Post::latest()->get();
-        return view('posts.index',compact('posts'));
+
+        $archives = Post::selectRaw('year(created_at) year, monthname(created_at) month,count(*) published')
+            ->groupBy('year', 'month')
+            ->get()
+            ->toArray();
+
+
+        return view('posts.index',compact('posts', 'archives'));
     }
 
     public function create()
@@ -31,7 +43,8 @@ class PostsController extends Controller
             'body' => 'required'
         ]);
         // Create a new Post using the request data
-           Post::create(request(['title', 'body']));
+         auth()->user()->publish(new Post(request(['title','body'])));
+
            return redirect('/');
     }
 
@@ -41,3 +54,12 @@ class PostsController extends Controller
         return view('posts.show-single-post', compact('post'));
     }
 }
+
+// 1:  Post::create(request(['title', 'body','user_id']));
+
+/*2:Post::create([
+'title'  => request('title'),
+            'body'    => request('body'),
+            'user_id' =>auth()->id()
+        ]);
+*/
