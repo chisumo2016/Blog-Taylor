@@ -9,6 +9,8 @@ use App\Http\Requests;
 use App\Post;
 use Carbon\Carbon;
 
+use App\Repositories\Posts;
+
 class PostsController extends Controller
 {
     public function __construct()
@@ -17,8 +19,11 @@ class PostsController extends Controller
     }
 
     //
-    public function index()
+    public function index(Post $posts)
     {
+           
+         $posts = $posts->all();
+
         $posts = Post::filter(request(['month', 'year']))->get();
 
 
@@ -75,6 +80,8 @@ class PostsController extends Controller
      }
 
 $posts = $posts->get();*/
+
+/*$posts = (new \App\Repositories\Posts)->all();  // Repositories*/
 
 
 
