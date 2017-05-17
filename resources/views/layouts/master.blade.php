@@ -20,6 +20,8 @@
 <body>
 @include('partials.nav')
 
+@include('partials.flash')
+
 @include('partials.header')
 
 <div class="container">

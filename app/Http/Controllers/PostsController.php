@@ -22,7 +22,7 @@ class PostsController extends Controller
     public function index(Post $posts)
     {
 
-         $posts = $posts->all();
+         $posts = $posts->latest();
 
         $posts = Post::filter(request(['month', 'year']))->get();
 
@@ -47,7 +47,7 @@ class PostsController extends Controller
         ]);
         // Create a new Post using the request data
          auth()->user()->publish(new Post(request(['title','body'])));
-
+          session()->flash('message', 'Your Post  has now been published');
            return redirect('/');
     }
 

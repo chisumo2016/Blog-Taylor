@@ -23,8 +23,10 @@ class RegisterationController extends Controller
     {
         // This logic has been move to the delicated class in  RegistrationRequest store(RegistrationForm  $form
         $request->persist();
-        //redirect
-        return redirect()->home();
+
+        session()->flash('message', 'Thanks so much for signing up!');
+
+        return redirect()->home(); //redirect
     }
 }
 
