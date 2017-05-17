@@ -47,4 +47,10 @@ class Post extends Model
              ->get()
              ->toArray();
      }
+
+     // Tags (Many To  Many
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }
