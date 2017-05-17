@@ -22,27 +22,9 @@ class PostsController extends Controller
         $posts = Post::filter(request(['month', 'year']))->get();
 
 
-        /*$posts = Post::latest();
+        $archives = Post::archives(); // Fetching archive
 
-          //Code is to mess .To refactor
-           if($month = request('month')){
-               $posts->whereMonth('created_at', Carbon::parse($month)->month);
-              }
-
-            if($year = request('year')){
-                   $posts->whereYear('created_at', $year);
-             }
-
-        $posts = $posts->get();*/
-
-
-        $archives = Post::selectRaw('year(created_at) year, monthname(created_at) month,count(*) published')
-            ->groupBy('year', 'month')
-            ->orderByRaw('min(created_at) desc')
-            ->get()
-            ->toArray();
-
-        return view('posts.index',compact('posts','archives'));
+        return view('posts.index',compact('posts'));
     }
 
     public function create()
@@ -79,6 +61,22 @@ class PostsController extends Controller
             'user_id' =>auth()->id()
         ]);
 */
+
+
+/*$posts = Post::latest();
+
+  //Code is to mess .To refactor
+   if($month = request('month')){
+       $posts->whereMonth('created_at', Carbon::parse($month)->month);
+      }
+
+    if($year = request('year')){
+           $posts->whereYear('created_at', $year);
+     }
+
+$posts = $posts->get();*/
+
+
 
 
 
