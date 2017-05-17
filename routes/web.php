@@ -1,5 +1,9 @@
 <?php
 
+
+//dd(resolve('App\Billing\Stripe'));
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,3 +35,19 @@ Route::get('/logout' ,      'SessionController@destroy');
 
 
 
+
+
+
+
+//// Service container
+//
+//App::singleton('App\Binding\Stripe', function(){
+//    return new \App\Billing\Stripe(config('services.stripe.secret')); // Register in service  provider
+//});
+//
+//// Call / Resolve out the container
+////$stripe = App::make('App\Billing\Stripe');
+//$stripe1 = resolve('App\Billing\Stripe');
+//$stripe2 = resolve('App\Billing\Stripe');
+//
+//dd ($stripe);

@@ -26,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Register to the Service container
+
+        \App::singleton('App\Billing\Stripe', function(){
+            return new \App\Billing\Stripe(config('services.stripe.secret')); // Register in service  provider
+        });
     }
 }
